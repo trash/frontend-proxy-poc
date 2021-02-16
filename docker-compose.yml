@@ -1,0 +1,12 @@
+services:
+    proxy:
+        image: nginx:latest
+        environment:
+            - MAIN_FRONTEND_URL=${MAIN_FRONTEND_URL}
+            - LOGIN_FRONTEND_URL=${LOGIN_FRONTEND_URL}
+            - API_FRONTEND_URL=${API_FRONTEND_URL}
+            - DESIGN_FRONTEND_URL=${DESIGN_FRONTEND_URL}
+        ports:
+            - ${PORT}
+        volumes:
+            - ./templates:/etc/nginx/templates

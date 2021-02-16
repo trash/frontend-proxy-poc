@@ -1,0 +1,34 @@
+server {
+    listen 80;
+    server_name frontend_proxy;
+
+    location / {
+        #proxy_pass https://node-dev.predictiveindex.com;
+        proxy_pass ${MAIN_FRONTEND_URL};
+
+    }
+
+    location /login {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-NginX-Proxy true;
+        #proxy_pass https://node-dev.predictiveindex.com/login;
+        proxy_pass ${LOGIN_FRONTEND_URL};
+    }
+
+    location /api {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-NginX-Proxy true;
+        #proxy_pass https://node-dev.predictiveindex.com/api;
+        proxy_pass ${API_FRONTEND_URL};
+    }
+
+    location /design {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-NginX-Proxy true;
+        #proxy_pass https://node-dev.predictiveindex.com/design;
+        proxy_pass ${DESIGN_FRONTEND_URL};
+    }
+}
